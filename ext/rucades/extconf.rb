@@ -8,8 +8,11 @@ require "mkmf-rice"
 require "fiddle"
 
 # rubocop:disable Style/GlobalVars
-LIBDIR = RUBY_PLATFORM =~ /darwin/ ? "/Applications/CryptoPro_ECP.app/Contents/Resources" : "/opt/cprocsp"
-BOOSTDIR = RUBY_PLATFORM =~ /darwin/ ? "/usr/local/include" : "/usr/include"
+PLATFROM_DARWIN = RUBY_PLATFORM =~ /darwin/
+PLATFORM_LINUX_ARM64 = RUBY_PLATFORM =~ /aarch64-linux/
+
+LIBDIR = PLATFROM_DARWIN ? "/Applications/CryptoPro_ECP.app/Contents/Resources" : "/opt/cprocsp"
+BOOSTDIR = PLATFROM_DARWIN ? "/usr/local/include" : "/usr/include"
 
 INCDIRS = [
   "#{BOOSTDIR}/boost",
@@ -45,15 +48,13 @@ INCDIRS.each { |dir| $INCFLAGS << " -I#{dir}" }
 $defs << " -DSIZEOF_VOID_P=#{Fiddle::SIZEOF_VOIDP}"
 
 CXXDEFS.each { |df| $defs << df }
-ARM64_CXXDEFS.each { |df| $defs << df } if RUBY_PLATFORM =~ /aarch64-linux/
-$defs << " -DDARWIN" if RUBY_PLATFORM =~ /darwin/
+ARM64_CXXDEFS.each { |df| $defs << df } if PLATFORM_LINUX_ARM64
+$defs << " -DDARWIN" if PLATFROM_DARWIN
 
-if RUBY_PLATFORM =~ /darwin/
+if PLATFROM_DARWIN
   $DLDFLAGS << " -L/Applications/CryptoPro_ECP.app/Contents/MacOS/lib"
   $DLDFLAGS << " -Wl,-rpath,/Applications/CryptoPro_ECP.app/Contents/MacOS/lib"
-  $DLDFLAGS << " -L/opt/cprocsp/lib/amd64"
-  $DLDFLAGS << " -Wl,-rpath,/opt/cprocsp/lib/amd64"
-elsif RUBY_PLATFORM =~ /aarch64-linux/
+elsif PLATFORM_LINUX_ARM64
   $DLDFLAGS << " -L/opt/cprocsp/lib/aarch64"
 else
   $DLDFLAGS << " -L/opt/cprocsp/lib/amd64"
