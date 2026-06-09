@@ -10,14 +10,20 @@ require "fiddle"
 # rubocop:disable Style/GlobalVars
 
 INCDIRS = [
-  "/usr/include/boost",
   "/opt/cprocsp/include",
   "/opt/cprocsp/include/cpcsp",
   "/opt/cprocsp/include/pki/atl",
-  "/opt/cprocsp/include/pki/cppcades",
-  "/opt/cprocsp/include/pki/cplib",
   "/opt/cprocsp/include/pki"
-].freeze
+]
+if RUBY_PLATFORM =~ /darwin/
+  INCDIRS.push("/Applications/CryptoPro_ECP.app/Contents/Resources/include/pki")
+  INCDIRS.push("/Applications/CryptoPro_ECP.app/Contents/Resources/include/pki/cplib")
+  INCDIRS.push("/Applications/CryptoPro_ECP.app/Contents/Resources/include/pki/cppcades")
+else
+  INCDIRS.push("/usr/include/boost")
+  INCDIRS.push("/opt/cprocsp/include/pki/cplib")
+  INCDIRS.push("/opt/cprocsp/include/pki/cppcades")
+end
 
 CXXDEFS = [
   " -DUNIX",
@@ -25,7 +31,8 @@ CXXDEFS = [
   " -Wno-narrowing",
   " -Wno-deprecated-declarations",
   " -Wno-write-strings",
-  " -DLEGACY_FORMAT_MESSAGE_IMPL"
+  " -DLEGACY_FORMAT_MESSAGE_IMPL",
+  " -D_LIBCPP_ENABLE_CXX17_REMOVED_AUTO_PTR"
 ].freeze
 
 ARM64_CXXDEFS = [
@@ -41,12 +48,18 @@ $defs << " -DSIZEOF_VOID_P=#{Fiddle::SIZEOF_VOIDP}"
 
 CXXDEFS.each { |df| $defs << df }
 ARM64_CXXDEFS.each { |df| $defs << df } if RUBY_PLATFORM =~ /aarch64-linux/
+$defs << " -DDARWIN" if RUBY_PLATFORM =~ /darwin/
 
-$DLDFLAGS << if RUBY_PLATFORM =~ /aarch64-linux/
-               " -L/opt/cprocsp/lib/aarch64"
-             else
-               " -L/opt/cprocsp/lib/amd64"
-             end
+if RUBY_PLATFORM =~ /darwin/
+  $DLDFLAGS << " -L/Applications/CryptoPro_ECP.app/Contents/MacOS/lib"
+  $DLDFLAGS << " -Wl,-rpath,/Applications/CryptoPro_ECP.app/Contents/MacOS/lib"
+  $DLDFLAGS << " -L/opt/cprocsp/lib/amd64"
+  $DLDFLAGS << " -Wl,-rpath,/opt/cprocsp/lib/amd64"
+elsif RUBY_PLATFORM =~ /aarch64-linux/
+  $DLDFLAGS << " -L/opt/cprocsp/lib/aarch64"
+else
+  $DLDFLAGS << " -L/opt/cprocsp/lib/amd64"
+end
 
 $LOCAL_LIBS << " -lcppcades"
 

@@ -13,9 +13,9 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_BasicConstraints::pre_rb_BasicConstraints(void):
-      m_pCppCadesImpl(boost::shared_ptr<CPPCadesCPBasicConstraintsObject>(new CPPCadesCPBasicConstraintsObject())) { }
+      m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesCPBasicConstraintsObject>(new CPPCadesCPBasicConstraintsObject())) { }
 
-pre_rb_BasicConstraints::pre_rb_BasicConstraints(boost::shared_ptr<CPPCadesCPBasicConstraintsObject> other):
+pre_rb_BasicConstraints::pre_rb_BasicConstraints(NS_SHARED_PTR::shared_ptr<CPPCadesCPBasicConstraintsObject> other):
       m_pCppCadesImpl(other) { }
 
 bool pre_rb_BasicConstraints::is_ceritficate_authority(void)

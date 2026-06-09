@@ -22,6 +22,8 @@
 #include <memory> //Этот хедер тут нужен что бы компилить с новыми версиями libstdc++
                   //в них есть конфликт с __in и __out макросами которые определены в MS хедерах.
 
+#include "cp_shared_ptr.h"
+
 #ifdef UNIX
 #include "CSP_WinDef.h"
 #include "CSP_WinError.h"
