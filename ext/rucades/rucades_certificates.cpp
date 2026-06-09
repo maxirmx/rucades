@@ -15,9 +15,9 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_Certificates::pre_rb_Certificates(void):
-      m_pCppCadesImpl(boost::shared_ptr<CPPCadesCPCertificatesObject>(new CPPCadesCPCertificatesObject())) { }
+      m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesCPCertificatesObject>(new CPPCadesCPCertificatesObject())) { }
 
-pre_rb_Certificates::pre_rb_Certificates(boost::shared_ptr<CPPCadesCPCertificatesObject> other):
+pre_rb_Certificates::pre_rb_Certificates(NS_SHARED_PTR::shared_ptr<CPPCadesCPCertificatesObject> other):
       m_pCppCadesImpl(other) { }
 
 long pre_rb_Certificates::get_count(void)
@@ -29,8 +29,8 @@ long pre_rb_Certificates::get_count(void)
 
 pre_rb_Certificate pre_rb_Certificates::get_item(long index)
 {
-  boost::shared_ptr<CPPCadesCPCertificateObject> pCppCadesCertificate =
-                    boost::shared_ptr<CPPCadesCPCertificateObject>(new CPPCadesCPCertificateObject());
+  NS_SHARED_PTR::shared_ptr<CPPCadesCPCertificateObject> pCppCadesCertificate =
+                    NS_SHARED_PTR::shared_ptr<CPPCadesCPCertificateObject>(new CPPCadesCPCertificateObject());
   hr_method_check(m_pCppCadesImpl->Item(index, pCppCadesCertificate));
   return pre_rb_Certificate(pCppCadesCertificate);
 }
@@ -50,8 +50,8 @@ pre_rb_Certificates pre_rb_Certificates::internal_find_query_long(long type, lon
           FindCriteria findCriteria;
           findCriteria.dwCriteriaFlag = FIND_CRITERIA_DWORD;
           findCriteria.dword = query;
-          boost::shared_ptr<CPPCadesCPCertificatesObject> pCppCadesCertificates =
-                    boost::shared_ptr<CPPCadesCPCertificatesObject>(new CPPCadesCPCertificatesObject());
+          NS_SHARED_PTR::shared_ptr<CPPCadesCPCertificatesObject> pCppCadesCertificates =
+                    NS_SHARED_PTR::shared_ptr<CPPCadesCPCertificatesObject>(new CPPCadesCPCertificatesObject());
           hr_method_check(m_pCppCadesImpl->Find(Type, &findCriteria, bValidOnly, pCppCadesCertificates));
           res = pre_rb_Certificates(pCppCadesCertificates);
         }
@@ -115,8 +115,8 @@ pre_rb_Certificates pre_rb_Certificates::internal_find_query_string(long type, s
         throw std::invalid_argument("Invalid CERTIFICATE_FIND_TYPE");
     }
 
-    boost::shared_ptr<CPPCadesCPCertificatesObject> pCppCadesCertificates =
-                    boost::shared_ptr<CPPCadesCPCertificatesObject>(new CPPCadesCPCertificatesObject());
+    NS_SHARED_PTR::shared_ptr<CPPCadesCPCertificatesObject> pCppCadesCertificates =
+                    NS_SHARED_PTR::shared_ptr<CPPCadesCPCertificatesObject>(new CPPCadesCPCertificatesObject());
     hr_method_check(m_pCppCadesImpl->Find(Type, &findCriteria, bValidOnly, pCppCadesCertificates));
     return pre_rb_Certificates(pCppCadesCertificates);
 }

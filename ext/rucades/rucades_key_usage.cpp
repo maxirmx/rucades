@@ -13,9 +13,9 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_KeyUsage::pre_rb_KeyUsage(void):
-      m_pCppCadesImpl(boost::shared_ptr<CPPCadesCPKeyUsageObject>(new CPPCadesCPKeyUsageObject())) { }
+      m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesCPKeyUsageObject>(new CPPCadesCPKeyUsageObject())) { }
 
-pre_rb_KeyUsage::pre_rb_KeyUsage(boost::shared_ptr<CPPCadesCPKeyUsageObject> other):
+pre_rb_KeyUsage::pre_rb_KeyUsage(NS_SHARED_PTR::shared_ptr<CPPCadesCPKeyUsageObject> other):
       m_pCppCadesImpl(other) { }
 
 bool pre_rb_KeyUsage::is_present(void)

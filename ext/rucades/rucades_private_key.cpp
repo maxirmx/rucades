@@ -13,9 +13,9 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_PrivateKey::pre_rb_PrivateKey(void):
-          m_pCppCadesImpl(boost::shared_ptr<CPPCadesCPPrivateKeyObject>(new CPPCadesCPPrivateKeyObject())) { }
+          m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesCPPrivateKeyObject>(new CPPCadesCPPrivateKeyObject())) { }
 
-pre_rb_PrivateKey::pre_rb_PrivateKey(boost::shared_ptr<CPPCadesCPPrivateKeyObject> other):
+pre_rb_PrivateKey::pre_rb_PrivateKey(NS_SHARED_PTR::shared_ptr<CPPCadesCPPrivateKeyObject> other):
       m_pCppCadesImpl(other) { }
 
 std::string pre_rb_PrivateKey::get_container_name(void)

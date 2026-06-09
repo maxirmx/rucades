@@ -44,6 +44,7 @@
 #pragma warning (push)
 #pragma warning (disable:4838)
 #endif
+#include <cstdint>
 #include <atlstr.h>
 #ifndef UNIX
 #pragma warning (pop)
