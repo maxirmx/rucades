@@ -64,9 +64,6 @@ _для arm64_
 ```
 gem 'rucades', git: 'https://github.com/maxirmx/rucades'
 ```
-Замечание. Репозиторий 'https://github.com/maxirmx/rucades' - приватный. Чтобы bundler имел к нему доступ,
-должен быть настроен [OAuth токен](https://docs.github.com/ru/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
-и конфигурацию: ```bundle config GITHUB__COM myoauthtoken:x-oauth-basic```
 
 * Выполните
 ```
