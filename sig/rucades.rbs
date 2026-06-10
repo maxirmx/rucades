@@ -498,8 +498,8 @@ module Rucades
     # Импортирует сертификат из закодированной строки.
     def import: (String encoded_data) -> void
 
-    # Является ли сертификат валидным.
-    def is_valid: () -> CertificateStatus
+    # Является ли сертификат валидным (возвращает статус сертификата)
+    def certificate_status: () -> CertificateStatus
 
     # Возвращает объект KeyUsage для данного сертификата.
     def key_usage: () -> KeyUsage
