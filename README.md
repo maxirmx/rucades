@@ -12,7 +12,7 @@ Gem реализует интерфейс, аналогичный [CAdESCOM](htt
 
 Gem тестировался в следующем окружении:
 * Ubuntu 20, 22
-* macOS (macos-latest)
+* macOS: macos-latest (arm64), macos-15-intel (amd64)
 * Ruby 2.7.8, 3.1.7, 3.2.11, 3.3.11, 3.4.9, 4.0.5
 
 Вероятно, Gem совместим с другими вариантами Linux, однако КриптоПро ЭЦП SDK доступно только для Ubuntu.
@@ -97,14 +97,7 @@ _для arm64_
    cd cades-linux-arm64
    sudo apt install ./cprocsp-pki-cades*.deb
 ```
-* Добавьте в Gemfile Вашего проекта одну из следующих строк:
-
-Для использования опубликованного Gem с RubyGems.org:
-```
-gem 'rucades'
-```
-
-Для использования актуальной версии из репозитория:
+* Добавьте в Gemfile Вашего проекта следующую строку:
 ```
 gem 'rucades', git: 'https://github.com/maxirmx/rucades'
 ```
